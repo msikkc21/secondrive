@@ -2,24 +2,7 @@
 <html lang="en">
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dashboard</title>
-    <link rel="stylesheet" href="bootstrap\css\bootstrap.min.css">
-    <style>
-        /* Hide scrollbar for Chrome, Safari and Opera */
-        ::-webkit-scrollbar {
-            display: none;
-        }
-
-        .element::-webkit-scrollbar {
-            width: 0 !important
-        }
-
-        html {
-            scrollbar-width: none;
-        }
-    </style>
+    <?php include("layouts/head.html") ?>
 </head>
 
 <body>
@@ -38,7 +21,7 @@
             <button class="btn btn-danger">Logout</button>
         </nav>
         <!-- END NAVBAR -->
-        
+
         <!-- MAIN -->
         <div class="h-75 d-inline-block" style="width: 120px; background-color: rgba(0,0,255,.1)"></div>
         <!-- END MAIN -->
