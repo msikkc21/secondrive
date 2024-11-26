@@ -1,10 +1,10 @@
-<?php 
-    session_start();
+<?php
+session_start();
 
-    if( !isset($_SESSION["login"])){
-        header("Location: login.php");
-        exit;
-    }
+if (!isset($_SESSION["login"])) {
+    header("Location: login.php");
+    exit;
+}
 ?>
 
 <!DOCTYPE html>
@@ -12,7 +12,7 @@
 
 <head>
     <?php include("layouts/head.html") ?>
-    <title>Daftar Mobil</title>
+    <title>Profil Pembeli</title>
 </head>
 
 <body>
@@ -23,8 +23,8 @@
                 <img src="assets/Logo1.webp" width="150" height="30" class="d-inline-block align-top" alt="logo">
             </a>
             <div class="navbar-nav d-flex flex-row">
-                <a class="mx-3 nav-item nav-link" href="index.php">Dashboard </a>
-                <a class="mx-3 nav-item nav-link active" href="#">Daftar Mobil <span class="sr-only">(current)</span></a>
+                <a class="mx-3 nav-item nav-link active" href="#">Dashboard <span class="sr-only">(current)</span></a>
+                <a class="mx-3 nav-item nav-link" href="daftar-mobil.php">Daftar Mobil</a>
                 <a class="mx-3 nav-item nav-link" href="#">Chat</a>
                 <a class="mx-3 nav-item nav-link" href="#">Komparasi</a>
             </div>
@@ -40,45 +40,34 @@
         <!-- END NAVBAR -->
 
         <!-- MAIN -->
-        <main class="container mt-5">
-            <h1 class="text-center">Daftar Mobil</h1>
-            <section>
-                <div class="card w-100 rounded my-5">
-                    <div class="card-body d-flex flex-row">
-                        <img src="assets/bmwm3.png" width="200px" height="200px" alt="bmw m3">
-                        <div class="px-4">
-                            <h5 class="card-title font-weight-bold">BMW M3</h5>
-                            <div class="d-flex flex-row font-weight-bold">
-                                <p class="card-text pr-2">Merk : BMW</p>
-                                <p class="card-text">Tahun : 2020</p>
-                            </div>
-                            <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
-                            <a href="#" class="btn" style="background-color: #000CFF; color: white;">Lihat Detail</a>
-                        </div>
-                    </div>
-                </div>
-                <div class="card w-100 rounded my-5">
-                    <div class="card-body d-flex flex-row">
-                        <img src="assets/bmwm3.png" width="200px" height="200px" alt="bmw m3">
-                        <div class="px-4">
-                            <h5 class="card-title font-weight-bold">BMW M3</h5>
-                            <div class="d-flex flex-row font-weight-bold">
-                                <p class="card-text pr-2">Merk : BMW</p>
-                                <p class="card-text">Tahun : 2020</p>
-                            </div>
-                            <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
-                            <a href="#" class="btn" style="background-color: #000CFF; color: white;">Lihat Detail</a>
-                        </div>
-                    </div>
-                </div>
-            </section>
-        </main>
+        <div class="my-5 p-3 rounded" style="background-color: #D0D0D0;">
+            <div class="border-bottom border-dark">
+                <h2 class="font-weight-bold">Profil Saya</h2>
+                <p class="font-weight-light">Kelola informasi profil Anda untuk mengontrol, melindungi dan mengamankan akun
+                </p>
+            </div>
+            <div class="d-flex my-2 ml-0">
+                <ul class="font-weight-bold" style="list-style: none;">
+                    <li class="my-2">Nama</li>
+                    <li class="my-2">Email</li>
+                    <li class="my-2">No Telepon</li>
+                    <li class="my-2">Alamat</li>
+                </ul>
+                <ul style="list-style: none;">
+                    <li class="my-2">Dasha Taran</li>
+                    <li class="my-2">dashataran@gmail.com</li>
+                    <li class="my-2">0812345678909</li>
+                    <li class="my-2">Papringan, RT.1/RW.4</li>
+                </ul>
+            </div>
+            <a href="#" class="btn btn-primary">Edit Profil</a>
+        </div>
         <!-- END MAIN -->
     </div>
 
 
     <!-- FOOTER -->
-    <footer class="text-center text-white" style="background-color: #000769;">
+    <footer class="text-center" style="background-color: #000769;">
         <!-- Grid container -->
         <div class="container pt-4 ">
             <!-- Section: Navbar -->

@@ -1,5 +1,17 @@
 <?php 
-    session_start()
+require 'functions.php';
+
+if( isset($_POST["register"]) ) {
+    
+    if(register($_POST) > 0){
+        echo "<script>
+        alert('Registrasi Berhasil!')
+        </script>";
+    } else {
+        echo mysqli_error($conn);
+    }
+
+}
 
 
 ?>
@@ -9,13 +21,14 @@
 
 <head>
     <?php include("layouts/head.html") ?>
+    <title>Register</title>
 </head>
 
 <body>
     <div class="container pt-5">
         <div class="w-75 mx-auto p-3 text-white rounded" style="background-color: #000CFF;">
             <h2 class="text-center">Registrasi</h2>
-            <form action="/register.php" method="post">
+            <form action="" method="post">
                 <div class="form-group">
                     <label for="nama">Nama Lengkap</label>
                     <input type="text" class="form-control" name="nama" placeholder="Masukkan Nama Lengkap">
@@ -45,7 +58,7 @@
                 </div>
                 <div class="form-group">
                     <label for="password2">Konfirmasi Password</label>
-                    <input type="password2" class="form-control" name="password2" placeholder="Konfirmasi Password">
+                    <input type="password" class="form-control" name="password2" placeholder="Konfirmasi Password">
                 </div>
                 <button name="register" type="submit" class="btn w-100 text-white" style="background-color: #00043D;">Daftar</button>
             </form>  

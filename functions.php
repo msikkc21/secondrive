@@ -14,20 +14,21 @@ function register($data)
     $no_hp = htmlspecialchars($data['telepon']);
     $tipe = $data['tipe-daftar'];
     $email = htmlspecialchars($data['email']);
-    $password = $data['password'];
-    $password2 = $data['password2'];
+    $password = mysqli_real_escape_string($conn, $data['password']);
+    $password2 = mysqli_real_escape_string($conn, $data['password2']);
     $date = date('Y-m-d');
 
-    $select = "SELECT email FROM " . $tipe . " WHERE email = " . $email . ";";
-    $db_email = mysqli_query($conn, $select);
+    // Cek Email
+    $db_email = mysqli_query($conn, "SELECT email FROM ".$tipe." WHERE email = '".$email."';");
 
-    if (mysqli_num_rows($db_email) === 1) {
+    if ( mysqli_fetch_assoc($db_email) ) {
         echo "<script>
             alert('Email sudah terdaftar');
         </script>";
         return false;
     }
 
+    // Cek Password
     if ($password != $password2) {
         echo "<script>
             alert('Password tidak sama');
@@ -35,13 +36,13 @@ function register($data)
         return false;
     }
 
+    // Enkripsi Password
     $password = password_hash($password, PASSWORD_DEFAULT);
-    $query = "INSERT INTO ".$tipe."(nama, email, password, no_hp, alamat
-            ) VALUES ('', '$nama', '$email', '$password', '$alamat', '$no_hp', '$date')";
-    $result = mysqli_query($conn, $query);
-    if ($result) {
-        echo "berhasil";
-    } else {
-        echo "gagal";
-    }
+
+    // Upload to database
+    $query = "INSERT INTO ".$tipe." VALUES ('', '$nama', '$email', '$password', '$alamat', '$no_hp', '$date')";
+    mysqli_query($conn, $query);
+
+    return mysqli_affected_rows($conn);
+
 }
