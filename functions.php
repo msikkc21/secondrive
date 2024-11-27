@@ -11,7 +11,7 @@ function register($data)
     global $conn;
     $nama = htmlspecialchars($data['nama']);
     $alamat = htmlspecialchars($data['alamat']);
-    $no_hp = htmlspecialchars($data['telepon']);
+    $no_hp = $data['telepon'];
     $tipe = $data['tipe-daftar'];
     $email = htmlspecialchars($data['email']);
     $password = mysqli_real_escape_string($conn, $data['password']);
@@ -46,3 +46,17 @@ function register($data)
     return mysqli_affected_rows($conn);
 
 }
+
+function editPembeli($data) {
+    global $conn;
+    $nama = htmlspecialchars($data['nama']);
+    $email = htmlspecialchars($data['email']);
+    $no_hp = $data['telepon'];
+    $alamat = htmlspecialchars($data['alamat']);
+
+    $query = "UPDATE  pembeli  SET  nama = '$nama', email = '$email', no_telp = '$no_hp', alamat = '$alamat'  WHERE   email = '".$_SESSION['email']."';";
+    mysqli_query($conn, $query);
+
+    return mysqli_affected_rows($conn);
+}
+

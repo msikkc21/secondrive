@@ -9,9 +9,23 @@ if (!isset($_SESSION["login"])) {
 
 $email = $_SESSION['email'];
 
-$result = mysqli_query($conn, "SELECT * FROM pembeli WHERE email = '".$email."';");
+$result = mysqli_query($conn, "SELECT * FROM pembeli WHERE email = '" . $email . "';");
 
 $row = mysqli_fetch_assoc($result);
+
+if( isset($_POST["edit"]) ) {
+    
+    if(editPembeli($_POST) > 0){
+        echo "<script>
+        alert('Profil berhasil diubah')
+        window.location = 'pembeli.php';
+        </script>";
+        
+        
+    } else {
+        echo mysqli_error($conn);
+    }
+}
 ?>
 
 <!DOCTYPE html>
@@ -53,22 +67,23 @@ $row = mysqli_fetch_assoc($result);
                 <p class="font-weight-light">Kelola informasi profil Anda untuk mengontrol, melindungi dan mengamankan akun
                 </p>
             </div>
-            <div class="d-flex my-2 ml-0">
-                <ul class="font-weight-bold" style="list-style: none;">
-                    <li class="my-2">Nama</li>
-                    <li class="my-2">Email</li>
-                    <li class="my-2">No Telepon</li>
-                    <li class="my-2">Alamat</li>
-                </ul>
-                <ul style="list-style: none;">
-                    <li class="my-2"><?= $row['nama']  ?></li>
-                    <li class="my-2"><?= $row['email']  ?></li>
-                    <li class="my-2"><?= $row['no_telp']  ?></li>
-                    <li class="my-2"><?= $row['alamat']  ?></li>
-                </ul>
-            </div>
-            <a href="edit-pembeli.php
-            " class="btn btn-primary">Edit Profil</a>
+            <form action="" method="post">
+                <div class="d-flex my-2 ml-0">
+                    <ul class="font-weight-bold" style="list-style: none;">
+                        <li class="my-3">Nama</li>
+                        <li class="my-3">Email</li>
+                        <li class="my-3">No Telepon</li>
+                        <li class="my-3">Alamat</li>
+                    </ul>
+                    <ul style="list-style: none;">
+                        <input type="text" class="form-control mt-1" name="nama" value=<?= $row['nama'] ?>>
+                        <input type="text" class="form-control mt-1" name="email" value=<?= $row['email'] ?>>
+                        <input type="text" class="form-control mt-1" name="telepon" value=<?= $row['no_telp'] ?>>
+                        <input type="text" class="form-control mt-1" name="alamat" value=<?= $row['alamat'] ?>>
+                    </ul>
+                </div>
+                <button type="submit" name="edit" class="ml-4 h-25 btn btn-success">Submit</button>
+            </form>
         </div>
         <!-- END MAIN -->
     </div>

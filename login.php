@@ -20,6 +20,7 @@
             $row = mysqli_fetch_assoc($result);
             if (password_verify($password, $row["password"])) {
                 $_SESSION["login"] = true;
+                $_SESSION["email"] = $email;
                 header("Location: index.php");
                 exit;
             }    
@@ -65,7 +66,7 @@
                 </div>
                 <button name="login" type="submit" class="btn w-100 text-white" style="background-color: #00043D;">Daftar</button>
             </form>
-            <p class="text-center mt-3">Belum memiliki akun? <a href="register.php" class="text-white">Login</a></p>
+            <p class="text-center mt-3">Belum memiliki akun? <a href="register.php" class="text-white">Register</a></p>
         </div>
     </div>
 </body>

@@ -6,6 +6,7 @@ if( isset($_POST["register"]) ) {
     if(register($_POST) > 0){
         echo "<script>
         alert('Registrasi Berhasil!')
+        window.location = 'pembeli.php';
         </script>";
     } else {
         echo mysqli_error($conn);
@@ -62,7 +63,7 @@ if( isset($_POST["register"]) ) {
                 </div>
                 <button name="register" type="submit" class="btn w-100 text-white" style="background-color: #00043D;">Daftar</button>
             </form>  
-            <p class="text-center mt-3">Sudah memiliki akun? <a href="login.php" class="text-white">Register</a></p>      
+            <p class="text-center mt-3">Sudah memiliki akun? <a href="login.php" class="text-white">Login</a></p>      
         </div>
     </div>
 </body>
