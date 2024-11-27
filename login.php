@@ -45,10 +45,11 @@ if (isset($_POST["login"])) {
     <title>Login</title>
 </head>
 
-<body>
+<body style="background-color: rgba(0, 12, 255, 0.33);">
     <div class="container pt-5">
-        <div class="w-75 mx-auto p-3 text-white rounded" style="background-color: #000CFF;">
-            <h2 class="text-center">Login</h2>
+        <div class="w-50 mx-auto p-3 text-dark rounded bg-white">
+            <img src="assets/Logo1.webp" alt="logo" class="w-50 my-2">
+            <p class="font-weght-medium" style="font-size: 14px;">Platform jual beli mobil bekas terpercaya, mudah, dan transparan.</p>
             <form action="" method="post">
                 <div class="form-group">
                     <label for="email">Email</label>
@@ -65,9 +66,9 @@ if (isset($_POST["login"])) {
                         <option value="penjual">Penjual</option>
                     </select>
                 </div>
-                <button name="login" type="submit" class="btn w-100 text-white" style="background-color: #00043D;">Daftar</button>
+                <button name="login" type="submit" class="btn w-100 text-white" style="background-color: #6166FF;">Daftar</button>
             </form>
-            <p class="text-center mt-3">Belum memiliki akun? <a href="register.php" class="text-white">Register</a></p>
+            <p class="text-center mt-3">Belum memiliki akun? <a href="register.php" class="text-dark">Register</a></p>
         </div>
     </div>
 </body>

@@ -5,6 +5,14 @@
         header("Location: login.php");
         exit;
     }
+
+    require 'functions.php';
+
+    $result = mysqli_query($conn, "SELECT * FROM mobil ORDER BY id_mobil");
+
+    
+    
+
 ?>
 
 <!DOCTYPE html>
@@ -43,34 +51,26 @@
         <main class="container mt-5">
             <h1 class="text-center">Daftar Mobil</h1>
             <section>
-                <div class="card w-100 rounded my-5">
+                <?php while($mobil = mysqli_fetch_assoc($result)) : ?>
+                <div class="card w-100 rounded-lg my-5">
                     <div class="card-body d-flex flex-row">
-                        <img src="assets/bmwm3.png" width="200px" height="200px" alt="bmw m3">
+                        <?php 
+                        $query = "SELECT * FROM gambar_mobil WHERE id_mobil = ".$mobil['id_mobil'].";";
+                        $imgMobil = mysqli_query($conn, $query); 
+                        $img = mysqli_fetch_assoc($imgMobil); ?>
+                        <img src=<?= "img/".$img['gambar1'] ?> width="200px" height="200px" alt=<?= $img['gambar1'] ?> class="rounded-lg">
                         <div class="px-4">
-                            <h5 class="card-title font-weight-bold">BMW M3</h5>
+                            <h5 class="card-title font-weight-bold"><?= $mobil['nama_mobil'] ?></h5>
                             <div class="d-flex flex-row font-weight-bold">
-                                <p class="card-text pr-2">Merk : BMW</p>
-                                <p class="card-text">Tahun : 2020</p>
+                                <p class="card-text pr-2">Merk : <?= $mobil['merek'] ?></p>
+                                <p class="card-text">Tahun : <?= $mobil['tahun'] ?></p>
                             </div>
-                            <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
+                            <p class="card-text"> <?= $mobil['deskripsi'] ?></p>
                             <a href="#" class="btn" style="background-color: #000CFF; color: white;">Lihat Detail</a>
                         </div>
                     </div>
                 </div>
-                <div class="card w-100 rounded my-5">
-                    <div class="card-body d-flex flex-row">
-                        <img src="assets/bmwm3.png" width="200px" height="200px" alt="bmw m3">
-                        <div class="px-4">
-                            <h5 class="card-title font-weight-bold">BMW M3</h5>
-                            <div class="d-flex flex-row font-weight-bold">
-                                <p class="card-text pr-2">Merk : BMW</p>
-                                <p class="card-text">Tahun : 2020</p>
-                            </div>
-                            <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
-                            <a href="#" class="btn" style="background-color: #000CFF; color: white;">Lihat Detail</a>
-                        </div>
-                    </div>
-                </div>
+                <?php endwhile; ?>
             </section>
         </main>
         <!-- END MAIN -->
