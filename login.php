@@ -1,39 +1,40 @@
-<?php 
-    session_start();
+<?php
+session_start();
 
-    if( isset($_SESSION["login"])){
-        header("Location: index.php");
-        exit;
-    }
-    require 'functions.php';
+if (isset($_SESSION["login"])) {
+    header("Location: index.php");
+    exit;
+}
+require 'functions.php';
 
-    if( isset($_POST["login"]) ){
-        $email = $_POST["email"];
-        $password = $_POST["password"];
-        $tipe = $_POST["tipe-login"];
+if (isset($_POST["login"])) {
+    $email = $_POST["email"];
+    $password = $_POST["password"];
+    $tipe = $_POST["tipe-login"];
 
-        $result = mysqli_query($conn, "SELECT * FROM ".$tipe." WHERE email = '".$email."';");
+    $result = mysqli_query($conn, "SELECT * FROM " . $tipe . " WHERE email = '" . $email . "';");
 
-        // cek email
-        if (mysqli_num_rows($result) === 1) {
-            // cek password
-            $row = mysqli_fetch_assoc($result);
-            if (password_verify($password, $row["password"])) {
-                $_SESSION["login"] = true;
-                $_SESSION["email"] = $email;
-                header("Location: index.php");
-                exit;
-            }    
+    // cek email
+    if (mysqli_num_rows($result) === 1) {
+        // cek password
+        $row = mysqli_fetch_assoc($result);
+        if (password_verify($password, $row["password"])) {
+            $_SESSION["login"] = true;
+            $_SESSION["email"] = $email;
+            $_SESSION["id"] = $row["id_".$tipe];
+            header("Location: index.php");
+            exit;
         }
+    }
 
-        $error = true;
-        
-        if($error){
-            echo "<script>
+    $error = true;
+
+    if ($error) {
+        echo "<script>
                 alert('Email atau Password salah!')
             </script>";
-        }
     }
+}
 ?>
 
 <!DOCTYPE html>
