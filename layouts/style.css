@@ -1,0 +1,46 @@
+.border-nav-gradien {
+    border-image: linear-gradient(to right, #3acfd5 0%, #3a4ed5 100%) 1 !important;
+    border-radius: 5px;
+}
+
+.group-18 {
+    padding: 5px;
+    background-image: linear-gradient(262.05deg, rgba(1, 239, 68, 1.00) 33.098456263542175%, rgba(0, 12, 255, 1.00) 93.55483651161194%);
+    border-radius: 50px;
+}
+.rectangle-11 {
+    background: #ffffff;
+    border-radius: 50px;
+    border-width: 5px;
+    border-style: solid;
+    border-image: linear-gradient(262.05deg, rgba(1, 239, 68, 1.00) 33.098456263542175%, rgba(0, 12, 255, 1.00) 93.55483651161194%);
+    border-image-slice: 1;
+    width: 138px;
+    height: 46px;
+    position: absolute;
+    left: 0px;
+    top: 0px;
+}
+
+.jual {
+    color: #000cff;
+    text-align: center;
+    font-family: 'Poppins-Bold', sans-serif;
+    font-size: 21.647058486938477px;
+    font-weight: 700;
+    padding:4px 10px ;
+    background-color: white;
+    border-radius: 50px;
+}
+
+.login {
+    background: #010bfb;
+    border-radius: 9.47px;
+    line-height: 0;
+    margin: auto;
+    height: 100%;
+    display: block;
+    padding: 22px;
+    color: white;
+}
+

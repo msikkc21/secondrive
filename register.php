@@ -34,7 +34,7 @@ if( isset($_POST["register"]) ) {
 
 <body style="background-color: rgba(0, 12, 255, 0.33);">
     <div class="container pt-5">
-        <div class="w-75 mx-auto p-3 bg-white rounded" style="background-color: #000CFF;">
+        <div class="w-50 mx-auto p-3 bg-white rounded" style="background-color: #000CFF;">
         <img src="assets/Logo1.webp" alt="logo" class="w-50 my-2">
         <p class="font-weght-medium" style="font-size: 14px;">Platform jual beli mobil bekas terpercaya, mudah, dan transparan.</p>
             <form action="" method="post">
@@ -49,13 +49,6 @@ if( isset($_POST["register"]) ) {
                 <div class="form-group">
                     <label for="telepon">Nomor Telepon</label>
                     <input type="text" class="form-control" name="telepon" placeholder="Masukkan Nomor Telepon">
-                </div>
-                <div class="form-group">
-                    <label for="tipe-daftar">Daftar Sebagai</label>
-                    <select class="form-control" name="tipe-daftar">
-                        <option value="pembeli">Pembeli</option>
-                        <option value="penjual">Penjual</option>
-                    </select>
                 </div>
                 <div class="form-group">
                     <label for="email">Email</label>
