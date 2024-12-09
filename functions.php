@@ -37,6 +37,8 @@ function register($data)
     // Enkripsi Password
     $password = password_hash($password, PASSWORD_DEFAULT);
 
+    $no_hp = gantiformat($no_hp);
+
     // Upload to database
     $query = "INSERT INTO users VALUES ('', '$nama', '$email', '$password', '$alamat', '$no_hp', '$date')";
     mysqli_query($conn, $query);
@@ -53,15 +55,18 @@ function editUser($data)
     $currentData = mysqli_fetch_assoc(mysqli_query($conn, "SELECT *  FROM users WHERE id_user = ".$id.";"));
 
     // Periksa apakah ada perubahan
-    if ($currentData['name'] == $data['name'] && $currentData['email'] == $data['email']) {
+    if ($currentData['nama'] == $data['nama'] && $currentData['email'] == $data['email'] && $currentData['no_telp'] == $data['telepon'] && $currentData['alamat'] == $data['alamat']) {
         return 0; // Tidak ada perubahan
     }
 
     // Jika ada perubahan, lakukan update
-    $name = htmlspecialchars($data['name']);
+    $nama = htmlspecialchars($data['nama']);
     $email = htmlspecialchars($data['email']);
+    $no_hp = $data['telepon'];
+    $alamat = htmlspecialchars($data['alamat']);
     
-    $query = "UPDATE users SET name = '$name', email = '$email' WHERE id = $id";
+    $no_hp = gantiformat($no_hp);
+    $query = "UPDATE users SET nama = '$nama', email = '$email', no_telp = '$no_hp', alamat = '$alamat' WHERE id_user = $id";
     mysqli_query($conn, $query);
 
     return mysqli_affected_rows($conn);
@@ -80,7 +85,7 @@ function tambahMobil($data)
     $bahan_bakar = $data["bahan-bakar"];
     $tipe = $data["tipe-mobil"];
     $transmisi = $data["tipe-transmisi"];
-    $harga = $data["harga"];
+    $harga = number_format($data['harga'],0,",",".");
     $status = 'tersedia';
     
     
@@ -133,72 +138,61 @@ function upload($files, $id_mobil) {
     return $uploadOk; // Kembalikan status upload
 }
 
-// function upload($data, $wajib)
-// {
-//     // Cek apakah data yang diperlukan ada
-//     if (!isset($data["name"]) || !isset($data['size']) || !isset($data['error']) || !isset($data['tmp_name'])) {
-//         echo "<script>alert('Data upload tidak lengkap');</script>";
-//         return false;
-//     }
+function uploadBukti() {
+    $targetDir = "imgBukti/";
+    $namaFile = $_FILES['bukti']['name'];
+    $ukuranFile = $_FILES['bukti']['size'];
+    $error= $_FILES['bukti']['error'];
+    $tmpName = $_FILES['bukti']['tmp_name'];
 
-//     $fileNames = $data["name"];
-//     $ukuranFiles = $data['size'];
-//     $errors = $data['error'];
-//     $tmpNames = $data['tmp_name'];
+    if($error == 4){
+        echo "<script> alert('Upload gambar bukti terlebih dahulu!')";
+        return false;
+    }
+    
+    $ekstensiGambarValid = ['jpg', 'jpeg', 'png'];
+    $ekstensiGambar = explode('.', $namaFile);
+    $ekstensiGambar = strtolower(end($ekstensiGambar));
+    
+    if(!in_array($ekstensiGambar, $ekstensiGambarValid)){
+        echo "<script> alert('Yang anda upload bukan gambar!')";
+        return false;
+    }
 
-//     // Cek jumlah gambar yang diupload
-//     if (count($fileNames) > 3) {
-//         echo "<script>alert('Maksimal upload 3 gambar');</script>";
-//         return false;
-//     }
+    if($ukuranFile > 5000000){
+        echo "<script> alert('Ukuran gambar terlalu besar!')</script>";
+        return false;
+    }
 
-//     $uploadedFiles = [];
+    $targetFilePath = $targetDir . uniqid() . "_" . $namaFile;
+    move_uploaded_file($tmpName, $targetFilePath);
 
-//     for ($i = 0; $i < count($fileNames); $i++) {
-//         $namaFile = $fileNames[$i];
-//         $ukuranFile = $ukuranFiles[$i];
-//         $error = $errors[$i];
-//         $tmpName = $tmpNames[$i];
+    return $targetFilePath;
+}
 
-//         // cek sudah upload gambar
-//         if ($wajib === 1 && $error === 4) {
-//             echo "<script>alert('Upload gambar 1 terlebih dahulu');</script>";
-//             return false;
-//         }
+function gantiformat($nomorhp) {
+    //Terlebih dahulu kita trim dl
+    $nomorhp = trim($nomorhp);
+   //bersihkan dari karakter yang tidak perlu
+    $nomorhp = strip_tags($nomorhp);     
+   // Berishkan dari spasi
+   $nomorhp= str_replace(" ","",$nomorhp);
+   // bersihkan dari bentuk seperti  (022) 66677788
+    $nomorhp= str_replace("(","",$nomorhp);
+   // bersihkan dari format yang ada titik seperti 0811.222.333.4
+    $nomorhp= str_replace(".","",$nomorhp); 
 
-//         // Jika ada error saat upload
-//         if ($error != 0) {
-//             echo "<script>alert('Terjadi kesalahan saat mengupload gambar');</script>";
-//             return false;
-//         }
+    //cek apakah mengandung karakter + dan 0-9
+    if(!preg_match('/[^+0-9]/',trim($nomorhp))){
+        // cek apakah no hp karakter 1-3 adalah +62
+        if(substr(trim($nomorhp), 0, 3)=='+62'){
+            $nomorhp= trim($nomorhp);
+        }
+        // cek apakah no hp karakter 1 adalah 0
+       elseif(substr($nomorhp, 0, 1)=='0'){
+            $nomorhp= '+62'.substr($nomorhp, 1);
+        }
+    }
+    return $nomorhp;
+}
 
-//         // cek ekstensi gambar
-//         $ekstensiGambarValid = ['jpg', 'jpeg', 'png'];
-//         $ekstensiGambar = explode('.', $namaFile);
-//         $ekstensiGambar = strtolower(end($ekstensiGambar));
-//         if (!in_array($ekstensiGambar, $ekstensiGambarValid)) {
-//             echo "<script>alert('Gambar harus berformat jpg, jpeg, png!');</script>";
-//             return false;
-//         }
-
-//         // cek ukuran
-//         if ($ukuranFile > 10000000) {
-//             echo "<script>alert('Ukuran gambar terlalu besar');</script>";
-//             return false;
-//         }
-
-//         // lolos cek
-//         $namaFileBaru = uniqid() . '.' . $ekstensiGambar;
-
-//         // Pindahkan file yang diupload ke direktori yang diinginkan
-//         if (move_uploaded_file($tmpName, 'img/' . $namaFileBaru)) {
-//             $uploadedFiles[] = $namaFileBaru;
-//         } else {
-//             echo "<script>alert('Gagal memindahkan file');</script>";
-//             return false;
-//         }
-//     }
-
-//     return $uploadedFiles; // Mengembalikan array nama file yang berhasil diupload
-
-// }

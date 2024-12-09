@@ -7,7 +7,8 @@ if (!isset($_SESSION["login"])) {
   exit;
 }
 
-$result = mysqli_query($conn, "SELECT * FROM mobil WHERE status = 'tersedia' ORDER BY id_mobil DESC");
+$query = "SELECT * FROM mobil WHERE id_user = " . $_SESSION['id'] . " ORDER BY id_mobil DESC";
+$result = mysqli_query($conn, $query);
 
 $mobilList = [];
 while ($mobil = mysqli_fetch_assoc($result)) {
@@ -34,65 +35,23 @@ while ($mobil = mysqli_fetch_assoc($result)) {
 <html lang="en">
 
 <head>
-  <?php include("layouts/head.html") ?>
+  <?php 
+  $active = 'iklan';
+  include("layouts/head.html") ?>
   <title>Dashboard Pembeli</title>
 </head>
 
 <body>
   <div class="container">
     <!-- NAVBAR -->
-    
-    <?php 
-    $active = 'dashboard';
-    include("layouts/navbar.html");
-    ?>
+    <?php include("layouts/navbar.html"); ?>
     <!-- END NAVBAR -->
 
     <!-- MAIN -->
-    <div class="container text-start d-flex" style="height: 80vh;">
-      <div class="row align-items-center my-auto w-100">
-        <div class="col">
-          <div style="max-width: 448px;">
-            <p class=" m-0 py-2"><span class="text-black fs-1 fw-bold font-family-Poppins">Selamat Datang <br />di
-              </span><span class="text-primary fs-1 fw-bold font-family-Poppins">SeconDrive</span></p>
-            <p class="text-black fs-6 fw-bold font-family-Poppins  m-0 py-2">Tempatnya jual beli mobil bekas terlengkap,
-              terjangkau, dan terpercaya</p>
-            <a style="max-width: 260px;" class="m-0 btn login" href="#Daftar-Mobil" role="button"><b>Lihat Selengkapnya</b></a>
-          </div>
-        </div>
-        <div class="col">
-          <div id="carouselExample" class="carousel slide" data-ride="carousel">
-            <div class="carousel-inner">
-              <?php $isActive = true; ?>
-              <?php foreach ($mobilList as $mobil) : ?>
-                <div class="carousel-item <?= $isActive ? 'active' : '' ?>">
-                  <img src="<?= $mobil['gambar'] ?>" class="d-block w-100" alt="<?= $mobil['nama'] ?>" style="height: 50vh;">
-                </div>
-                <?php $isActive = false; ?>
-              <?php endforeach; ?>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-    <div class="container d-flex">
-      <a class="m-auto" href="#Daftar-Mobil">
-        <svg width="103" height="25" viewBox="0 0 103 25" fill="none"
-          xmlns="http://www.w3.org/2000/svg">
-          <path d="M6 6L51.3333 18.813L96.6667 6" stroke="#0D12F1" stroke-width="11.3333" stroke-linecap="round"
-            stroke-linejoin="round" />
-        </svg>
-      </a>
-    </div>
-    <div class="container mt-5" id="Daftar-Mobil">
-      <p class="text-center text-black fs-1 fw-bold font-family-Poppins mb-3 px-3 py-2">Daftar Mobil</p>
-    </div>
-
-
-    <section class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
+    <section class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3" style="height: 76vh;">
       <?php foreach ($mobilList as $mobil) : ?>
         <div class="col">
-          <div class="card w-100 rounded-lg my-2">
+          <div class="card w-100 rounded-lg my-5">
             <div class="card-body">
               <img class="bd-placeholder-img card-img-top" src="<?= $mobil['gambar'] ?>"
                 style="height: 230px; object-fit: cover;" alt="">
@@ -111,6 +70,23 @@ while ($mobil = mysqli_fetch_assoc($result)) {
           </div>
         </div>
       <?php endforeach; ?>
+      <div class="col">
+        <div class="card card w-100 rounded-lg my-5">
+          <div class="card-body">
+            <a href="tambah-mobil.php">
+              <div class="px-1 py-1 bg-white rounded-3 border border-1 border-primary col-10 align-items-center d-flex mx-auto" style="height: 315px;">
+                <svg class="m-auto" width="67" height="67" viewBox="0 0 67 67" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M4.5 33.5H62.8333M33.6667 4.33333V62.6667" stroke="#000CFF" stroke-width="8"
+                    stroke-linecap="round" stroke-linejoin="round" />
+                </svg>
+              </div>
+            </a>
+            <a href="tambah-mobil.php" class="btn btn-primary py-2 col-10 d-flex mx-auto justify-content-center mt-5" style="background-color: #000CFF !important;">Pasang Iklan
+            </a>
+          </div>
+        </div>
+      </div>
+
     </section>
     <!-- END MAIN -->
   </div>

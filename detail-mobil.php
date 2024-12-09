@@ -16,9 +16,12 @@ $mobil = mysqli_fetch_assoc($result);
 $query = "SELECT * FROM gambar_mobil WHERE id_mobil = " . $id_mobil . ";";
 $imgMobil = mysqli_query($conn, $query);
 
-$query = "SELECT nama FROM users WHERE id_user = " . $mobil['id_user'] . ";";
+$query = "SELECT nama, no_telp FROM users WHERE id_user = " . $mobil['id_user'] . ";";
 $result = mysqli_query($conn, $query);
 $penjual = mysqli_fetch_assoc($result);
+$no_telp = $penjual['no_telp'];
+
+
 ?>
 
 <!DOCTYPE html>
@@ -42,7 +45,9 @@ $penjual = mysqli_fetch_assoc($result);
 <body>
     <div class="container">
         <!-- NAVBAR -->
-        <?php include("layouts/navbar.html") ?>
+        <?php 
+        $active = 'daftar-mobil';
+        include("layouts/navbar.html") ?>
         <!-- END NAVBAR -->
 
         <!-- MAIN -->
@@ -142,12 +147,12 @@ $penjual = mysqli_fetch_assoc($result);
                 </div>
                 <div class="w-25">
                     <div class="px-2 py-4" style="background-color: #D8DFE0;">
-                        <h2 class="font-weight-normal pl-2 mb-2 text-center" style="font-size: 38px;"><?= $mobil["harga"] ?></h2>
-                        <a class="btn btn-primary w-75 d-flex justify-content-center mx-auto" href="#">Beli</a>
+                        <h2 class="font-weight-normal pl-2 mb-2 text-center" style="font-size: 38px;">RP <?= $mobil["harga"] ?></h2>
+                        <a class="btn btn-primary w-75 d-flex justify-content-center mx-auto" href="<?= 'transaksi.php?id='.$id_mobil ?>">Beli</a>
                     </div>
                     <div class="px-3 py-4 my-4" style="background-color: #D8DFE0;">
                         <h2 class="font-weight-normal pl-2 mb-2 text-center" style="font-size: 20px;"><?= $penjual["nama"] ?></h2>
-                        <a class="btn btn-primary w-75 d-flex justify-content-center mx-auto" href="#">Chat dengan penjual</a>
+                        <a class="btn btn-primary w-75 d-flex justify-content-center mx-auto" href="<?php echo 'https://wa.me/'.$no_telp.'?text=Saya%20tertarik%20dengan%20mobil%20'.$mobil['nama_mobil'] ?>">Chat dengan penjual</a>
                     </div>
                 </div>
             </section>
@@ -160,10 +165,6 @@ $penjual = mysqli_fetch_assoc($result);
     <?php include("layouts/footer.html") ?>
     <!-- END FOOTER -->
 
-
-    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 </body>
 
 </html>

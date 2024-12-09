@@ -1,4 +1,4 @@
-<nav class="navbar navbar-expand-lg bg-body-tertiary">
+<nav class="navbar navbar-expand-lg">
   <div class="container">
     <a class="navbar-brand" href="#">
       <img src="assets/Logo1.webp" alt="Logo" width="260" />
@@ -17,21 +17,16 @@
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
       <ul class="navbar-nav m-auto mb-2 mb-lg-0">
         <li class="nav-item">
-          <a class="nav-link active" aria-current="page" href="index.php">Dashboard</a>
+          <a class="nav-link <?= $active == 'dashboard' ? 'active' : ''; ?>" aria-current="page" href="index.php">Dashboard</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link active" aria-current="page" href="index.php#Daftar-Mobil"
-            >Daftar Mobil</a
-          >
+          <a class="nav-link <?= $active == 'daftar-mobil' ? 'active' : ''; ?>" aria-current="page" href="index.php#Daftar-Mobil">Daftar Mobil</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link active" aria-current="page" href="#">Chat</a>
+          <a class="nav-link <?= $active == 'iklan' ? 'active' : ''; ?>" aria-current="page" href="iklan-saya.php">Iklan Saya</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link active" aria-current="page" href="#">Iklan Saya</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link active" aria-current="page" href="#">Komparasi</a>
+          <a class="nav-link <?= $active == 'komparasi' ? 'active' : ''; ?>" aria-current="page" href="komparasi.php">Komparasi</a>
         </li>
       </ul>
       <div class="d-flex" style="gap: 5px">

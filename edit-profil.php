@@ -95,26 +95,7 @@ if( isset($_POST["edit"]) ) {
 
 
     <!-- FOOTER -->
-    <footer class="text-center" style="background-color: #000769;">
-        <!-- Grid container -->
-        <div class="container pt-4 ">
-            <!-- Section: Navbar -->
-            <section class="navbar-nav mb-4 d-flex flex-row justify-content-center">
-                <a class="mx-3 nav-item nav-link" href="index.php">Dashboard</a>
-                <a class="mx-3 nav-item nav-link" href="daftar-mobil.php">Daftar Mobil</a>
-                <a class="mx-3 nav-item nav-link" href="#">Chat</a>
-                <a class="mx-3 nav-item nav-link" href="#">Komparasi</a>
-            </section>
-            <!-- Section: Navbar -->
-        </div>
-        <!-- Grid container -->
-
-        <!-- Copyright -->
-        <div class="text-center p-3" style="background-color: #00043D ; color: #000CFF ;">
-            All Rights Reserved • Copyright SeconDrive 2024 in Semarang
-        </div>
-        <!-- Copyright -->
-    </footer>
+    <?php include('layouts/footer.html') ?>
     <!-- END FOOTER -->
 
 </body>
