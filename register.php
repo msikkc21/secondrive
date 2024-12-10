@@ -32,7 +32,7 @@ if( isset($_POST["register"]) ) {
     <title>Register</title>
 </head>
 
-<body style="background-color: rgba(0, 12, 255, 0.33);">
+<body style="background-color: #000769;">
     <div class="container pt-5">
         <div class="w-50 mx-auto p-3 bg-white rounded" style="background-color: #000CFF;">
         <img src="assets/Logo1.webp" alt="logo" class="w-50 my-2">

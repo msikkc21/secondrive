@@ -133,6 +133,13 @@ if (isset($_POST['compareCars'])) {
               <td class="text-center py-3"><?= $mobil2["bahan_bakar"] ?></td>
             </tr>
             <tr>
+              <th colspan="2" class="text-center py-3">Kapasitas Mesin</th>
+            </tr>
+            <tr>
+              <td class="text-center py-3"><?= $mobil1["kapasitas"] ?> CC</td>
+              <td class="text-center py-3"><?= $mobil2["kapasitas"] ?> CC</td>
+            </tr>
+            <tr>
               <th colspan="2" class="text-center py-3">Transmisi</th>
             </tr>
             <tr>
@@ -164,8 +171,8 @@ if (isset($_POST['compareCars'])) {
               <th colspan="2" class="text-center py-3">Harga</th>
             </tr>
             <tr>
-              <td class="text-center py-3"><?= $mobil1["harga"] ?></td>
-              <td class="text-center py-3"><?= $mobil2["harga"] ?></td>
+              <td class="text-center py-3">Rp <?= $mobil1["harga"] ?></td>
+              <td class="text-center py-3">Rp <?= $mobil2["harga"] ?></td>
             </tr>
           </tbody>
         </table>

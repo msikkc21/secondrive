@@ -48,7 +48,7 @@ while ($mobil = mysqli_fetch_assoc($result)) {
     <!-- END NAVBAR -->
 
     <!-- MAIN -->
-    <section class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3" style="height: 76vh;">
+    <section class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
       <?php foreach ($mobilList as $mobil) : ?>
         <div class="col">
           <div class="card w-100 rounded-lg my-5">
@@ -63,7 +63,7 @@ while ($mobil = mysqli_fetch_assoc($result)) {
                 </div>
                 <p class="text-black fs-4 fw-bold font-family-Poppins col-12 m-0 px-3 py-2"><?= $mobil["harga"] ?></p>
                 <div class="d-flex justify-content-end align-items-end">
-                  <a href="detail-mobil.php?id=<?= $mobil["id_mobil"] ?>" class="text-dark text-decoration-none px-2 font-weight-bold">Lihat Detail -></a>
+                  <a href="edit-mobil.php?id=<?= $mobil["id_mobil"] ?>" class="text-dark text-decoration-none px-2 font-weight-bold">Edit Mobil -></a>
                 </div>
               </div>
             </div>

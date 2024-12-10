@@ -85,7 +85,7 @@ function tambahMobil($data)
     $bahan_bakar = $data["bahan-bakar"];
     $tipe = $data["tipe-mobil"];
     $transmisi = $data["tipe-transmisi"];
-    $harga = number_format($data['harga'],0,",",".");
+    $harga = formatNumber($data['harga']);
     $status = 'tersedia';
     
     
@@ -100,10 +100,81 @@ function tambahMobil($data)
     
     $gambar = upload($_FILES['gambar'], $row['id_mobil']);
 
-    // $upGambar = "INSERT INTO gambar_mobil VALUES (''," . $row['id_mobil'] . ", '$gambar')";
-    // mysqli_query($conn, $upGambar);
+    return mysqli_affected_rows($conn);
+}
+
+function editMobil($data) {
+    global $conn;
+
+    // Ambil data pengguna yang ada di database
+    $id = $_GET['id'];
+    $nama = $data["nama"];
+    $deskripsi = $data["deskripsi"];
+    $merek = $data["merek"];
+    $jarak = $data["jarak"];
+    $warna = $data["warna"];
+    $kapasitas = $data["kapasitas"];
+    $tahun = $data["tahun"];
+    $bahan_bakar = $data["bahan-bakar"];
+    $tipe = $data["tipe-mobil"];
+    $transmisi = $data["tipe-transmisi"];
+    $harga = $data['harga'];
+    $status = $data['status'];
+    
+    $currentData = mysqli_fetch_assoc(mysqli_query($conn, "SELECT *  FROM mobil WHERE id_mobil = ".$id.";"));
+    
+    // Periksa apakah ada perubahan
+    if ($currentData['nama_mobil'] == $nama && $currentData['deskripsi'] == $deskripsi && $currentData['merek'] == $merek && $currentData['jarak'] == $jarak && $currentData['warna'] == $warna && $currentData['kapasitas'] == $kapasitas && $currentData['tahun'] == $tahun && $currentData['bahan_bakar'] == $bahan_bakar && $currentData['tipe'] == $tipe && $currentData['transmisi'] == $transmisi && $currentData['harga'] == $harga && $currentData['status'] == $status) {
+        return 0; // Tidak ada perubahan
+    }
+    
+    $nama = htmlspecialchars($data["nama"]);
+    $deskripsi = htmlspecialchars($data["deskripsi"]);
+    $merek = htmlspecialchars($data["merek"]);
+    $jarak = htmlspecialchars($data["jarak"]);
+    $warna = htmlspecialchars($data["warna"]);
+    $kapasitas = htmlspecialchars($data["kapasitas"]);
+    $tahun = htmlspecialchars($data["tahun"]);
+    $bahan_bakar = $data["bahan-bakar"];
+    $tipe = $data["tipe-mobil"];
+    $transmisi = $data["tipe-transmisi"];
+    $harga = formatNumber($data['harga']);
+    $status = $data['status'];
+
+    $query = "UPDATE mobil SET 
+    nama_mobil = '$nama', 
+    merek = '$merek', 
+    tipe = '$tipe', 
+    warna = '$warna', 
+    tahun = '$tahun', 
+    bahan_bakar = '$bahan_bakar', 
+    jarak = '$jarak', 
+    transmisi = '$transmisi', 
+    kapasitas = '$kapasitas', 
+    harga = '$harga', 
+    deskripsi = '$deskripsi', 
+    status = '$status' 
+    WHERE id_mobil = '$id'";
+
+    mysqli_query($conn, $query);
 
     return mysqli_affected_rows($conn);
+    
+}
+
+function formatNumber($input) {
+    // Menghapus karakter yang tidak perlu
+    $input = str_replace(['.', ',', ' '], '', $input); // Menghapus titik, koma, dan spasi
+
+    // Cek apakah input adalah angka
+    if (!is_numeric($input)) {
+        return "Input tidak valid, bukan angka.";
+    }
+
+    // Mengubah input ke format yang benar (misalnya, format dengan pemisah ribuan dan dua desimal)
+    $formattedNumber = number_format($input, 0, ',', '.');
+
+    return $formattedNumber;
 }
 
 function upload($files, $id_mobil) {

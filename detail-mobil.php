@@ -39,13 +39,27 @@ $no_telp = $penjual['no_telp'];
             width: 100%;
             /* Agar gambar memenuhi lebar carousel */
         }
+
+        .carousel-control-prev-icon,
+        .carousel-control-next-icon {
+            background-color: black;
+            /* Mengubah warna latar belakang ikon menjadi hitam */
+            border-radius: 50%;
+            /* Jika Anda ingin ikon berbentuk bulat */
+        }
+
+        .carousel-control-prev-icon::after,
+        .carousel-control-next-icon::after {
+            color: white;
+            /* Mengubah warna panah menjadi putih jika menggunakan font */
+        }
     </style>
 </head>
 
 <body>
     <div class="container">
         <!-- NAVBAR -->
-        <?php 
+        <?php
         $active = 'daftar-mobil';
         include("layouts/navbar.html") ?>
         <!-- END NAVBAR -->
@@ -54,15 +68,15 @@ $no_telp = $penjual['no_telp'];
         <div class="container">
             <!-- Carousel -->
             <div id="carouselExampleIndicators" class="carousel slide mx-auto my-3" data-ride="carousel">
-                <div class="carousel-inner">
+                <div class="carousel-inner w-75 mx-auto" style="height: 70vh;">
                     <div class="carousel-inner">
-                    <?php $isActive = true; ?>
-                <?php while ($img = mysqli_fetch_assoc($imgMobil)) : ?>
-                    <div class="carousel-item <?= $isActive ? 'active' : '' ?>">
-                        <img src="<?= $img['gambar'] ?>" class="d-block w-100" alt="<?= $img['gambar'] ?>" style="max-height: 75vh;">
-                    </div>
-                    <?php $isActive = false; ?>
-                <?php endwhile; ?>
+                        <?php $isActive = true; ?>
+                        <?php while ($img = mysqli_fetch_assoc($imgMobil)) : ?>
+                            <div class="carousel-item <?= $isActive ? 'active' : '' ?>">
+                                <img src="<?= $img['gambar'] ?>" class="d-block w-100" alt="<?= $img['gambar'] ?>" style="max-height: 75vh;">
+                            </div>
+                            <?php $isActive = false; ?>
+                        <?php endwhile; ?>
                     </div>
                 </div>
                 <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
@@ -136,7 +150,11 @@ $no_telp = $penjual['no_telp'];
                                 </div>
                                 <div class="d-flex justify-content-between">
                                     <p style="color: #535353;">Jarak Tempuh</p>
-                                    <p class="font-weight-bold"><?= $mobil["jarak"] ?></p>
+                                    <p class="font-weight-bold"><?= $mobil["jarak"] ?> Km</p>
+                                </div>
+                                <div class="d-flex justify-content-between">
+                                    <p style="color: #535353;">Kapasitas Mesin</p>
+                                    <p class="font-weight-bold"><?= $mobil["kapasitas"] ?> CC</p>
                                 </div>
                             </div>
                         </div>
@@ -148,11 +166,11 @@ $no_telp = $penjual['no_telp'];
                 <div class="w-25">
                     <div class="px-2 py-4" style="background-color: #D8DFE0;">
                         <h2 class="font-weight-normal pl-2 mb-2 text-center" style="font-size: 38px;">RP <?= $mobil["harga"] ?></h2>
-                        <a class="btn btn-primary w-75 d-flex justify-content-center mx-auto" href="<?= 'transaksi.php?id='.$id_mobil ?>">Beli</a>
+                        <a class="btn btn-primary w-75 d-flex justify-content-center mx-auto" href="<?= 'transaksi.php?id=' . $id_mobil ?>">Beli</a>
                     </div>
                     <div class="px-3 py-4 my-4" style="background-color: #D8DFE0;">
                         <h2 class="font-weight-normal pl-2 mb-2 text-center" style="font-size: 20px;"><?= $penjual["nama"] ?></h2>
-                        <a class="btn btn-primary w-75 d-flex justify-content-center mx-auto" href="<?php echo 'https://wa.me/'.$no_telp.'?text=Saya%20tertarik%20dengan%20mobil%20'.$mobil['nama_mobil'] ?>">Chat dengan penjual</a>
+                        <a class="btn btn-primary w-75 d-flex justify-content-center mx-auto" href="<?php echo 'https://wa.me/' . $no_telp . '?text=Saya%20tertarik%20dengan%20mobil%20' . $mobil['nama_mobil'] ?>">Chat dengan penjual</a>
                     </div>
                 </div>
             </section>

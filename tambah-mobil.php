@@ -33,7 +33,9 @@ if (isset($_POST["submit"])) {
 <html lang="en">
 
 <head>
-  <?php include("layouts/head.html") ?>
+  <?php 
+  $active = 'iklan';
+  include("layouts/head.html") ?>
   <title>Tambah Mobil</title>
   <style>
     .preview-img {

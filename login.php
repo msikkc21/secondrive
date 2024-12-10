@@ -44,7 +44,7 @@ if (isset($_POST["login"])) {
     <title>Login</title>
 </head>
 
-<body style="background-color: rgba(0, 12, 255, 0.33);">
+<body style="background-color: #000769;">
     <div class="container pt-5">
         <div class="w-50 mx-auto p-3 text-dark rounded bg-white">
             <img src="assets/Logo1.webp" alt="logo" class="w-50 my-2">
